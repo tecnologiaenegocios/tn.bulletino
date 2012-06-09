@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <version>1</version>
+  <dependencies>
+    <dependency>profile-plone.app.z3cform:default</dependency>
+    <dependency>profile-tn.plonehtmlimagecache:default</dependency>
+    <dependency>profile-tn.plonehtmlpage:default</dependency>
+    <dependency>profile-tn.plonemailing:default</dependency>
+  </dependencies>
+</metadata>

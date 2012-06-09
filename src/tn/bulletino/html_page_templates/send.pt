@@ -1,0 +1,54 @@
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    xml:lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="tn.bulletino"
+    >
+<body>
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+      <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+      <h1 class="documentFirstHeading"
+          i18n:translate="">
+          Send <span i18n:name="title" tal:content="context/title" />
+      </h1>
+
+      <h2 tal:content="view/test_form/label">Test</h2>
+      <tal:test-fieldset content="structure view/test_form/render" />
+
+      <h2 tal:content="view/send_form/label">Send</h2>
+
+      <table
+          class="listing"
+          summary="E-mail format distribution"
+          i18n:attributes="summary"
+          tal:define="stats   view/subscriber_stats;
+                      headers stats/keys;
+                      values  stats/values">
+
+        <caption
+            style="white-space: nowrap;"
+            i18n:translate="">E-mail format distribution</caption>
+
+        <thead>
+          <tr><th tal:repeat="cell headers" tal:content="cell" /></tr>
+        </thead>
+
+        <tbody>
+          <tr><td tal:repeat="cell values" tal:content="cell" /></tr>
+        </tbody>
+
+      </table>
+
+      <tal:test-fieldset content="structure view/send_form/render" />
+
+    </tal:main-macro>
+  </metal:main>
+</body>
+</html>
