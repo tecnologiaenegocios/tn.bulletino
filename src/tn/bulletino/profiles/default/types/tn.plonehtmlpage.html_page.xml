@@ -3,7 +3,6 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     name="tn.bulletino.html_page"
     meta_type="Dexterity FTI"
-    i18n:domain="tn.plonehtmlpage"
     >
 
   <property name="behaviors">
@@ -15,13 +14,12 @@
   </property>
 
   <action
-      title="Send"
+      title="tn.bulletino-send-action-title"
       action_id="send"
       category="object"
       condition_expr=""
       url_expr="string:${object_url}/send"
       visible="True"
-      i18n:domain="tn.bulletino"
       >
     <permission value="tn.bulletino: Send content" />
   </action>

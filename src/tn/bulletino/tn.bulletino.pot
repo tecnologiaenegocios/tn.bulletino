@@ -1,0 +1,63 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-06-09 19:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: tn.bulletino\n"
+
+#: ./html_page.py:93
+msgid "By pressing the button below you will send this newsletter to all of your audience."
+msgstr ""
+
+#: ./html_page_templates/send.pt:27
+msgid "E-mail format distribution"
+msgstr ""
+
+#: ./html_page.py:33
+msgid "Formats"
+msgstr ""
+
+#: ./html_page.py:79
+msgid "Message successfully sent."
+msgstr ""
+
+#: ./html_page.py:58
+msgid "Perform test"
+msgstr ""
+
+#: ./html_page_templates/send.pt:19
+msgid "Send ${title}"
+msgstr ""
+
+#: ./html_page.py:55
+msgid "Send this newsletter to your own e-mail address in order to see how it will appear to your audience."
+msgstr ""
+
+#: ./html_page.py:96
+msgid "Send to all recipients"
+msgstr ""
+
+#: ./html_page.py:92
+msgid "Send your newsletter to all subscribers"
+msgstr ""
+
+#: ./html_page.py:28
+msgid "Test recipient"
+msgstr ""
+
+#: ./html_page.py:54
+msgid "Test your newsletter"
+msgstr ""
+
