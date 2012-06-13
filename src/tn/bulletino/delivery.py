@@ -2,7 +2,6 @@ from five import grok
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.directives import form
 from tn.bulletino import _
-from tn.plonehtmlpage.html_page import IHTMLPageSchema
 from tn.plonemailing import interfaces as pminterfaces
 from tn.plonemailing import behaviors
 from tn.plonemailing.mailhost import getMailHost
@@ -45,7 +44,7 @@ class ISendSchema(form.Schema):
 
 class TestForm(form.SchemaForm):
     grok.require('tn.bulletino.SendContent')
-    grok.context(IHTMLPageSchema)
+    grok.context(behaviors.INewsletterFromContentMarker)
 
     schema = ITestSchema
     ignoreContext = True
@@ -83,7 +82,7 @@ class TestForm(form.SchemaForm):
 
 class SendForm(form.SchemaForm):
     grok.require('tn.bulletino.SendContent')
-    grok.context(IHTMLPageSchema)
+    grok.context(behaviors.INewsletterFromContentMarker)
 
     schema = ISendSchema
     ignoreContext = True
@@ -118,7 +117,7 @@ class SendForm(form.SchemaForm):
 
 class Send(grok.View):
     grok.require('tn.bulletino.SendContent')
-    grok.context(IHTMLPageSchema)
+    grok.context(behaviors.INewsletterFromContentMarker)
 
     def update(self):
         super(Send, self).update()
