@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    name="tn.bulletino.html_page"
+    name="tn.plonehtmlpage.html_page"
     meta_type="Dexterity FTI"
     >
 
