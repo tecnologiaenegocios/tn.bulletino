@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    name="tn.plonestyledpage.styled_page"
+    meta_type="Dexterity FTI"
+    >
+
+  <property name="behaviors">
+    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+    <element value="plone.app.dexterity.behaviors.related.IRelatedItems" />
+    <element value="plone.app.content.interfaces.INameFromTitle" />
+    <element value="tn.plonemailing.behaviors.INewsletterFromContent" />
+  </property>
+
+  <action
+      title="tn.bulletino-send-action-title"
+      action_id="send"
+      category="object"
+      condition_expr=""
+      url_expr="string:${object_url}/send"
+      visible="True"
+      >
+    <permission value="tn.bulletino: Send content" />
+  </action>
+</object>

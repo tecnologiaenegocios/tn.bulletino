@@ -27,6 +27,7 @@ setup(
         'tn.plonehtmlimagecache',
         'tn.plonehtmlpage',
         'tn.plonemailing',
+        'tn.plonestyledpage',
         'collective.autopermission',
     ],
     extras_require={

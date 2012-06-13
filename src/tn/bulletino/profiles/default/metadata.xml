@@ -6,5 +6,6 @@
     <dependency>profile-tn.plonehtmlimagecache:default</dependency>
     <dependency>profile-tn.plonehtmlpage:default</dependency>
     <dependency>profile-tn.plonemailing:default</dependency>
+    <dependency>profile-tn.plonestyledpage:default</dependency>
   </dependencies>
 </metadata>
