@@ -3,11 +3,15 @@ _ = MessageFactory('tn.bulletino')
 
 from five import grok
 from plone.app.dexterity.behaviors.metadata import ICategorization
+from tn.plonebehavior.template import ITemplatingMarker
+from tn.plonebehavior.template import getTemplate
 from tn.plonehtmlimagecache.interfaces import IHTMLAttribute
 from tn.plonehtmlpage.html_page import IHTMLPageSchema
 from tn.plonemailing.interfaces import INewsletterHTML
 from tn.plonestyledpage import styled_page
 
+import lxml.builder
+import lxml.html
 import zope.component
 import zope.globalrequest
 
@@ -40,6 +44,9 @@ class StyledPageNewsletterHTML(grok.Adapter):
 
     @property
     def html(self):
+        if ITemplatingMarker.providedBy(self.context):
+            html = getTemplate(self.context).compile(self.context)
+            return self.add_title(html)
         return u"%(doctype)s\n<html %(html_attrs)s>%(head)s%(body)s</html>" % {
             'doctype': u'<!DOCTYPE html>',
             'html_attrs': u'lang="%s"' % self.get_language(),
@@ -66,3 +73,13 @@ class StyledPageNewsletterHTML(grok.Adapter):
             'title': self.context.title,
             'style': styled_page.getStyleBlock(self.context)
         }
+
+    def add_title(self, html):
+        tree = lxml.html.document_fromstring(html)
+        if not tree.xpath('/html/head/title'):
+            title = lxml.builder.E.title(self.context.title)
+            tree.head.insert(0, title)
+        else:
+            title = tree.xpath('/html/head/title')[0]
+            title.text = self.context.title
+        return lxml.html.tostring(tree)
