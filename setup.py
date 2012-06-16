@@ -24,6 +24,7 @@ setup(
         'Plone',
         'plone.app.z3cform',
         'plone.directives.form',
+        'tn.plonebehavior.template',
         'tn.plonehtmlimagecache',
         'tn.plonehtmlpage',
         'tn.plonemailing',
