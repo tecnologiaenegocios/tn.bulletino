@@ -10,6 +10,7 @@
     <element value="plone.app.dexterity.behaviors.related.IRelatedItems" />
     <element value="plone.app.content.interfaces.INameFromTitle" />
     <element value="tn.plonemailing.behaviors.INewsletterFromContent" />
+    <element value="tn.plonebehavior.template.ITemplating" />
   </property>
 
   <action

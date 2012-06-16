@@ -2,10 +2,15 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('tn.bulletino')
 
 from five import grok
+from tn.plonebehavior.template import ITemplatingMarker
+from tn.plonebehavior.template import getTemplate
 from tn.plonehtmlimagecache.interfaces import IHTMLAttribute
 from tn.plonehtmlpage.html_page import IHTMLPageSchema
 from tn.plonemailing.interfaces import INewsletterHTML
 from tn.plonestyledpage import styled_page
+
+import lxml.builder
+import lxml.html
 
 
 apply = lambda f: f()
@@ -36,6 +41,9 @@ class StyledPageNewsletterHTML(grok.Adapter):
 
     @property
     def html(self):
+        if ITemplatingMarker.providedBy(self.context):
+            html = getTemplate(self.context).compile(self.context)
+            return self.add_title(html)
         return u"%(doctype)s\n<html %(html_attrs)s>%(head)s%(body)s</html>" % {
             'doctype': u'',
             'html_attrs': u'',
@@ -61,3 +69,13 @@ class StyledPageNewsletterHTML(grok.Adapter):
         return u'<body id="%s">%s</body>' % (
             styled_page.getUniqueId(self.context), self.context.body.output
         )
+
+    def add_title(self, html):
+        tree = lxml.html.document_fromstring(html)
+        if not tree.xpath('/html/head/title'):
+            title = lxml.builder.E.title(self.context.title)
+            tree.head.insert(0, title)
+        else:
+            title = tree.xpath('/html/head/title')[0]
+            title.text = self.context.title
+        return lxml.html.tostring(tree)
