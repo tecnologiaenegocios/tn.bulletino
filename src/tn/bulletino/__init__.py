@@ -3,7 +3,7 @@ _ = MessageFactory('tn.bulletino')
 
 from five import grok
 from plone.app.dexterity.behaviors.metadata import ICategorization
-from tn.plonebehavior.template import ITemplatingMarker
+from tn.plonebehavior.template import IHasTemplate
 from tn.plonebehavior.template import getTemplate
 from tn.plonehtmlimagecache.interfaces import IHTMLAttribute
 from tn.plonehtmlpage.html_page import IHTMLPageSchema
@@ -44,9 +44,11 @@ class StyledPageNewsletterHTML(grok.Adapter):
 
     @property
     def html(self):
-        if ITemplatingMarker.providedBy(self.context):
-            html = getTemplate(self.context).compile(self.context)
-            return self.add_title(html)
+        if IHasTemplate.providedBy(self.context):
+            template = getTemplate(self.context)
+            if template:
+                html = template.compile(self.context)
+                return self.add_title(html)
         return u"%(doctype)s\n<html %(html_attrs)s>%(head)s%(body)s</html>" % {
             'doctype': u'<!DOCTYPE html>',
             'html_attrs': u'lang="%s"' % self.get_language(),
