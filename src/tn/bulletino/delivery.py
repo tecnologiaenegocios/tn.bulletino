@@ -99,11 +99,10 @@ class SendForm(form.SchemaForm):
             self.status = self.formErrorsMessage
             return
 
-        behavior = behaviors.INewsletterFromContent(self.context)
-        subscriber_providers = behavior.subscriber_providers
         mailhost = getMailHost()
         newsletter = pminterfaces.INewsletter(self.context)
-        for value in subscriber_providers:
+        behavior = behaviors.INewsletterFromContent(self.context)
+        for value in behavior.possible_subscriber_providers:
             list = value.to_object
             subscriber_provider = pminterfaces.ISubscriberProvider(list)
             for subscriber in subscriber_provider.subscribers():
@@ -145,5 +144,5 @@ class Send(grok.View):
 
     def lists(self):
         behavior = behaviors.INewsletterFromContent(self.context)
-        for value in behavior.subscriber_providers:
+        for value in behavior.possible_subscriber_providers:
             yield value.to_object
