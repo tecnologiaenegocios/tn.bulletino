@@ -4,10 +4,10 @@ from plone.directives import form
 from tn.bulletino import _
 from tn.plonemailing import interfaces as pminterfaces
 from tn.plonemailing import behaviors
-from tn.plonemailing.mailhost import getMailHost
 from z3c.form import button
 
 import zope.schema
+import zope.component
 
 
 class TestSubscriber(object):
@@ -69,11 +69,9 @@ class TestForm(form.SchemaForm):
             for format in data['formats']
         ]
 
-        newsletter = pminterfaces.INewsletter(self.context)
-        mailhost = getMailHost()
-        for subscriber in subscribers:
-            message = newsletter.compile(subscriber)
-            mailhost.send(message)
+        mailing = zope.component.getUtility(pminterfaces.IMailing)
+        mailing.send(self.context, subscribers=subscribers,
+                     suppress_events=True)
 
         IStatusMessage(self.request).add(_(u'Message successfully sent.'),
                                          type='info')
@@ -99,15 +97,8 @@ class SendForm(form.SchemaForm):
             self.status = self.formErrorsMessage
             return
 
-        mailhost = getMailHost()
-        newsletter = pminterfaces.INewsletter(self.context)
-        behavior = behaviors.INewsletterFromContent(self.context)
-        for value in behavior.possible_subscriber_providers:
-            list = value.to_object
-            subscriber_provider = pminterfaces.ISubscriberProvider(list)
-            for subscriber in subscriber_provider.subscribers():
-                message = newsletter.compile(subscriber)
-                mailhost.send(message)
+        mailing = zope.component.getUtility(pminterfaces.IMailing)
+        mailing.send(self.context)
 
         IStatusMessage(self.request).add(_(u'Message successfully sent.'),
                                          type='info')
@@ -137,12 +128,5 @@ class Send(grok.View):
         return formats
 
     def subscribers(self):
-        for list in self.lists():
-            subscriber_provider = pminterfaces.ISubscriberProvider(list)
-            for subscriber in subscriber_provider.subscribers():
-                yield subscriber
-
-    def lists(self):
-        behavior = behaviors.INewsletterFromContent(self.context)
-        for value in behavior.possible_subscriber_providers:
-            yield value.to_object
+        mailing = zope.component.getUtility(pminterfaces.IMailing)
+        return mailing.iterSubscribers(self.context)
