@@ -21,6 +21,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'collective.autopermission',
+        'five.globalrequest',
         'Plone',
         'plone.app.z3cform',
         'plone.directives.form',
@@ -29,7 +31,6 @@ setup(
         'tn.plonehtmlpage',
         'tn.plonemailing',
         'tn.plonestyledpage',
-        'collective.autopermission',
     ],
     extras_require={
         'test': [
