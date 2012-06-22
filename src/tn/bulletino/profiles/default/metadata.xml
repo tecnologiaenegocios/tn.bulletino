@@ -7,5 +7,6 @@
     <dependency>profile-tn.plonehtmlpage:default</dependency>
     <dependency>profile-tn.plonemailing:default</dependency>
     <dependency>profile-tn.plonestyledpage:default</dependency>
+    <dependency>profile-tn.plonebehavior.template:default</dependency>
   </dependencies>
 </metadata>
