@@ -2,9 +2,7 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('tn.bulletino')
 
 from five import grok
-from plone.app.dexterity.behaviors.metadata import ICategorization
-from tn.plonebehavior.template import IHasTemplate
-from tn.plonebehavior.template import getTemplate
+from tn.plonebehavior.template.interfaces import ITemplate
 from tn.plonehtmlimagecache.interfaces import IHTMLAttribute
 from tn.plonehtmlpage.html_page import IHTMLPageSchema
 from tn.plonemailing.interfaces import INewsletterHTML
@@ -12,14 +10,14 @@ from tn.plonestyledpage import styled_page
 
 import lxml.builder
 import lxml.html
-import zope.component
-import zope.globalrequest
 
 
 apply = lambda f: f()
 
 
-class HTMLAttributeMixin(object):
+class HTMLPageHTMLAttribute(grok.Adapter):
+    grok.context(IHTMLPageSchema)
+    grok.implements(IHTMLAttribute)
 
     @apply
     def html():
@@ -28,14 +26,16 @@ class HTMLAttributeMixin(object):
         return property(get, set)
 
 
-class HTMLPageHTMLAttribute(grok.Adapter, HTMLAttributeMixin):
-    grok.context(IHTMLPageSchema)
-    grok.implements(IHTMLAttribute)
-
-
-class HTMLPageNewsletterHTML(grok.Adapter, HTMLAttributeMixin):
+class HTMLPageNewsletterHTML(grok.Adapter):
     grok.context(IHTMLPageSchema)
     grok.implements(INewsletterHTML)
+
+    @property
+    def html(self):
+        html = self.context.html
+        tree = lxml.html.document_fromstring(html)
+        tree.make_links_absolute(self.context.absolute_url())
+        return lxml.html.tostring(tree)
 
 
 class StyledPageNewsletterHTML(grok.Adapter):
@@ -44,37 +44,9 @@ class StyledPageNewsletterHTML(grok.Adapter):
 
     @property
     def html(self):
-        if IHasTemplate.providedBy(self.context):
-            template = getTemplate(self.context)
-            if template:
-                html = template.compile(self.context)
-                return self.add_title(html)
-        return u"%(doctype)s\n<html %(html_attrs)s>%(head)s%(body)s</html>" % {
-            'doctype': u'<!DOCTYPE html>',
-            'html_attrs': u'lang="%s"' % self.get_language(),
-            'head': self.get_head(),
-            'body': u'<body>%s</body>' % self.context.body.output
-        }
-
-    def get_language(self):
-        metadata = ICategorization(self.context, None)
-        if metadata and metadata.language:
-            return metadata.language
-        return self.get_language_from_portal()
-
-    def get_language_from_portal(self):
-        request = zope.globalrequest.getRequest()
-        portal_state = zope.component.getMultiAdapter(
-            (self.context, request),
-            name="plone_portal_state"
-        )
-        return portal_state.default_language()
-
-    def get_head(self):
-        return u"<head><title>%(title)s</title>%(style)s</head>" % {
-            'title': self.context.title,
-            'style': styled_page.getStyleBlock(self.context)
-        }
+        template = ITemplate(self.context)
+        html = template.compile(self.context)
+        return self.add_title(html)
 
     def add_title(self, html):
         tree = lxml.html.document_fromstring(html)
