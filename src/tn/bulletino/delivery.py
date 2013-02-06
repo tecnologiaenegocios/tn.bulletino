@@ -129,4 +129,4 @@ class Send(grok.View):
 
     def subscribers(self):
         mailing = zope.component.getUtility(pminterfaces.IMailing)
-        return mailing.iterSubscribers(self.context)
+        return mailing.iter_subscribers(self.context)
