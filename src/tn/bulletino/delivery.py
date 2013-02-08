@@ -128,5 +128,5 @@ class Send(grok.View):
         return formats
 
     def subscribers(self):
-        mailing = zope.component.getUtility(pminterfaces.IMailing)
-        return mailing.iter_subscribers(self.context)
+        behavior = behaviors.INewsletterFromContent(self.context)
+        return behavior.subscribers
