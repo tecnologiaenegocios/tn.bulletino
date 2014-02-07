@@ -1,6 +1,7 @@
 from five import grok
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.directives import form
+from plone.supermodel import model
 from tn.bulletino import _
 from tn.plonemailing import interfaces as pminterfaces
 from tn.plonemailing import behaviors
@@ -21,7 +22,7 @@ class TestSubscriber(object):
         self.removal_url = removal_url
 
 
-class ITestSchema(form.Schema):
+class ITestSchema(model.Schema):
 
     test_recipient_address = zope.schema.TextLine(
         title=_(u'Test recipient'),
@@ -38,7 +39,7 @@ class ITestSchema(form.Schema):
     )
 
 
-class ISendSchema(form.Schema):
+class ISendSchema(model.Schema):
     pass
 
 
