@@ -25,6 +25,7 @@ setup(
         'five.globalrequest',
         'Plone',
         'plone.app.z3cform',
+        'plone.api',
         'plone.directives.form',
         'tn.plonebehavior.template',
         'tn.plonehtmlimagecache',
