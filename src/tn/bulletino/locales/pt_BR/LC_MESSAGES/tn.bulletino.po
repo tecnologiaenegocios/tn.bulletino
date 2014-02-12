@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-06-09 19:30+0000\n"
+"POT-Creation-Date: 2014-02-12 18:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,47 +17,51 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: tn.bulletino\n"
 
-#: ./html_page.py:93
+#: tn/bulletino/delivery.py:104
 msgid "By pressing the button below you will send this newsletter to all of your audience."
 msgstr "Pressionando o botão abaixo você vai enviar este boletim para toda a sua audiência."
 
-#: ./html_page_templates/send.pt:27
+#: tn/bulletino/delivery_templates/send.pt:28
 msgid "E-mail format distribution"
 msgstr "Distribuição de formatos de e-mail"
 
-#: ./html_page.py:33
+#: tn/bulletino/delivery.py:37
 msgid "Formats"
 msgstr "Formatos"
 
-#: ./html_page.py:79
+#: tn/bulletino/delivery.py:86
 msgid "Message successfully sent."
 msgstr "Mensagem enviada com sucesso."
 
-#: ./html_page.py:58
+#: tn/bulletino/delivery.py:143
+msgid "No subscribers were assigned to this newsletter yet. Edit and add one or more subscriber lists."
+msgstr "Nenhum inscrito foi atribuído a este boletim ainda. Edite e adicione uma ou mais listas de inscritos."
+
+#: tn/bulletino/delivery.py:67
 msgid "Perform test"
 msgstr "Executar teste"
 
-#: ./html_page_templates/send.pt:19
+#: tn/bulletino/delivery_templates/send.pt:19
 msgid "Send ${title}"
 msgstr "Enviar ${title}"
 
-#: ./html_page.py:55
+#: tn/bulletino/delivery.py:60
 msgid "Send this newsletter to your own e-mail address in order to see how it will appear to your audience."
 msgstr "Envie este boletim para seu próprio endereço de e-mail para ver como ele aparecerá para sua audiência."
 
-#: ./html_page.py:96
+#: tn/bulletino/delivery.py:111
 msgid "Send to all recipients"
 msgstr "Enviar a todos os destinatários"
 
-#: ./html_page.py:92
+#: tn/bulletino/delivery.py:103
 msgid "Send your newsletter to all subscribers"
 msgstr "Enviar seu boletim a todos os inscritos"
 
-#: ./html_page.py:28
+#: tn/bulletino/delivery.py:31
 msgid "Test recipient"
 msgstr "Destinatário de teste"
 
-#: ./html_page.py:54
+#: tn/bulletino/delivery.py:59
 msgid "Test your newsletter"
 msgstr "Testar seu boletim"
 
