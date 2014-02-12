@@ -138,7 +138,13 @@ class Send(grok.View):
         self.test_form.update()
         self.send_form.update()
 
-        if len(self.subscribers()) == 0 and not self._sent:
+        # 'fname' is the key used to send the field name in an inline
+        # validation request.  If this is an inline validation request, don't
+        # set a message.
+        if (
+            len(self.subscribers()) == 0 and not self._sent and not
+            self.request.form.get('fname')
+        ):
             IStatusMessage(self.request).add(
                 _(u'No subscribers were assigned to this newsletter yet. '
                   u'Edit and add one or more subscriber lists.'),
