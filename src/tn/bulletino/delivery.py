@@ -8,8 +8,8 @@ from plone.supermodel import model
 from tn.bulletino import _
 from tn.plonemailing import interfaces as pminterfaces
 from tn.plonemailing import behaviors
-from z3c.form import button
 
+import z3c.form
 import zope.schema
 import zope.component
 
@@ -32,11 +32,13 @@ class ITestSchema(model.Schema):
         required=True,
     )
 
+    form.widget(formats=z3c.form.browser.checkbox.CheckBoxFieldWidget)
     formats = zope.schema.Tuple(
         title=_(u'Formats'),
         value_type=zope.schema.Choice(
             values=[u'html', u'text']
         ),
+        default=(u'html',),
         missing_value=(),
         required=True,
     )
@@ -62,7 +64,7 @@ class TestForm(form.SchemaForm):
         super(TestForm, self).__init__(context, request)
         self.send_view = send_view
 
-    @button.buttonAndHandler(_(u'Perform test'))
+    @z3c.form.button.buttonAndHandler(_(u'Perform test'))
     def handleTest(self, action):
         data, errors = self.extractData()
         if errors:
@@ -106,7 +108,7 @@ class SendForm(form.SchemaForm):
         super(SendForm, self).__init__(context, request)
         self.send_view = send_view
 
-    @button.buttonAndHandler(_(u'Send to all recipients'))
+    @z3c.form.button.buttonAndHandler(_(u'Send to all recipients'))
     def handleSend(self, action):
         data, errors = self.extractData()
         if errors:
