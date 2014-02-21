@@ -32,6 +32,7 @@
       name="view"
       for="tn.plonebehavior.template.IHasTemplate"
       class="tn.plonebehavior.template.DefaultView"
+      layer="tn.plonebehavior.template.interfaces.IBrowserLayer"
       permission="zope2.View"
       />
 
