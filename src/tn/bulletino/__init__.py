@@ -3,6 +3,7 @@ _ = MessageFactory('tn.bulletino')
 
 from five import grok
 from tn.plonebehavior.template.interfaces import ITemplate
+from tn.plonebehavior.template.html import absolutize_links
 from tn.plonehtmlimagecache.interfaces import IHTMLAttribute
 from tn.plonehtmlpage.html_page import IHTMLPageSchema
 from tn.plonemailing.interfaces import INewsletterHTML
@@ -33,7 +34,7 @@ class HTMLPageNewsletterHTML(grok.Adapter):
     def html(self):
         html = self.context.html
         tree = lxml.html.document_fromstring(html)
-        tree.make_links_absolute(self.context.absolute_url())
+        absolutize_links(tree, self.context.absolute_url())
         return lxml.html.tostring(tree)
 
 
