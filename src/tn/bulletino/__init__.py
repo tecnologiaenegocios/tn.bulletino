@@ -12,18 +12,17 @@ import lxml.builder
 import lxml.html
 
 
-apply = lambda f: f()
-
-
 class HTMLPageHTMLAttribute(grok.Adapter):
     grok.context(IHTMLPageSchema)
     grok.implements(IHTMLAttribute)
 
-    @apply
-    def html():
-        def get(self): return self.context.html
-        def set(self, value): self.context.html = value
-        return property(get, set)
+    @property
+    def html(self):
+        return self.context.html
+
+    @html.setter
+    def html(self, value):
+        self.context.html = value
 
 
 class HTMLPageNewsletterHTML(grok.Adapter):
