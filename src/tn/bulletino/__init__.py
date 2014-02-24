@@ -2,7 +2,7 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('tn.bulletino')
 
 from five import grok
-from tn.plonebehavior.template.interfaces import ITemplate
+from tn.plonebehavior.template.interfaces import ICompilation
 from tn.plonebehavior.template.html import absolutize_links
 from tn.plonehtmlimagecache.interfaces import IHTMLAttribute
 from tn.plonehtmlpage.html_page import IHTMLPageSchema
@@ -44,9 +44,8 @@ class StyledPageNewsletterHTML(grok.Adapter):
 
     @property
     def html(self):
-        template = ITemplate(self.context)
-        html = template.compile(self.context)
-        return self.add_title(html)
+        compilation = ICompilation(self.context)
+        return self.add_title(unicode(compilation))
 
     def add_title(self, html):
         tree = lxml.html.document_fromstring(html)
